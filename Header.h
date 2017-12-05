@@ -160,4 +160,4 @@ void LinkedList<Type>::remove(Type value)
 		it = it->next;
 	}
 	length--;
-}#pragma once
+}
