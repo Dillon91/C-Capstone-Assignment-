@@ -1,8 +1,36 @@
+
+#include "LinkedList.h"
 #include "AddressBook.h"
 #include <iostream>
 #include <stdlib.h>
 #include <fstream>
 #include <string>
+
+
+// Can be created with name, address, aniv date, and bday
+Address::Address(std::string name, std::string streetAddress, std::string anniversaryDate, std::string birthdayDate)
+{
+	this->name = name;
+	this->streetAddress = streetAddress;
+	this->anniversaryDate = anniversaryDate;
+	this->birthdayDate = birthdayDate;
+}
+
+Address::~Address()
+{
+
+}
+
+// Can be printed out by an overloaded operator.
+std::ostream& operator<<(std::ostream& os, const Address& curAddress)
+{
+	os.clear();
+	os << "Name:             " << curAddress.name << std::endl
+		<< "Address:          " << curAddress.streetAddress << std::endl
+		<< "Anniversary Date: " << curAddress.anniversaryDate << std::endl
+		<< "Birthday Date:    " << curAddress.birthdayDate << std::endl;
+	return os;
+};
 
 AddressBook::AddressBook()
 {
@@ -11,7 +39,14 @@ AddressBook::AddressBook()
 
 AddressBook::~AddressBook()
 {
-	//dtor
+	Node* prev = nullptr;
+	Node* it = head;
+	while (it != nullptr)
+	{
+		prev = it;
+		it = it->next;
+		delete prev;
+	}
 }
 
 // Print all of the elements in the address book
@@ -21,15 +56,15 @@ void AddressBook::print()
 	while (it != NULL)
 	{
 		//std::cout << it->val << std::endl;
-			
+
 		std::cout << it << std::endl;
 		std::cout << it->val << std::endl;
-	
+
 		it = it->next;
 		//break;
 	}
 
-	
+
 }
 
 // Removes the passed in name
