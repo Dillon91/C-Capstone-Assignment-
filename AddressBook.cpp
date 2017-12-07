@@ -76,7 +76,7 @@ void AddressBook::remove(std::string name)
 
 	// While our iterator isnt null
 	//while (it != NULL)
-	//if (it == NULL) return;
+	if (it == NULL) return;
 	{
 		// Get the current name out of the node
 		std::string curName = ((Address)it->val).name;
