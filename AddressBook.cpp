@@ -32,12 +32,12 @@ std::ostream& operator<<(std::ostream& os, const Address& curAddress)
 	return os;
 };
 
-AddressBook::AddressBook()
+AddressBook::AddressBook() : LinkedList<Address>()
 {
 	//ctor
 }
 
-AddressBook::~AddressBook()
+AddressBook::~AddressBook() 
 {
 	Node* prev = nullptr;
 	Node* it = head;
@@ -53,15 +53,11 @@ AddressBook::~AddressBook()
 void AddressBook::print()
 {
 	Node* it = head;
-	while (it != NULL)
+	while (it != nullptr)
 	{
-		//std::cout << it->val << std::endl;
-
-		std::cout << it << std::endl;
 		std::cout << it->val << std::endl;
-
 		it = it->next;
-		//break;
+	
 	}
 
 
@@ -72,32 +68,38 @@ void AddressBook::remove(std::string name)
 {
 	// Start the iterator at the head
 	Node* it = head;
-	Node* prev = NULL;
+	Node* prev = nullptr;
 
 	// While our iterator isnt null
-	//while (it != NULL)
-	if (it == NULL) return;
-	{
+	while (it != nullptr)
+	{ 
+	if (it == nullptr) return;
+	
 		// Get the current name out of the node
 		std::string curName = ((Address)it->val).name;
 
 		// If the current name and nameToBeDeleted are the same
 		if (curName == name)
+		
 		{
 			// If we are at the head, set it's next node to the iterators next value
-			if (prev == NULL)
+			if (prev == nullptr)
 			{
 				head = it->next;
 				delete it;
+				
 			}
+			
 			// Else set the previous values next value to the iterators next value
 			else
 			{
 				prev->next = it->next;
 				delete it;
+				it = prev->next;
 			}
 			// Decrease the length on removal
 			length--;
+			break;
 		}
 		// Set the previous node to be the iterator
 		prev = it;
@@ -113,7 +115,7 @@ Address AddressBook::get(std::string name)
 	Node* it = head;
 
 	// While our name isn't found, and we haven't gone through the whole list
-	while (it != NULL)
+	while (it != nullptr)
 	{
 		// Extract the iterators name
 		std::string curName = ((Address)it->val).name;
@@ -137,7 +139,7 @@ void AddressBook::generateBirthdayCards(std::string date)
 {
 	// Go through every address
 	Node* it = head;
-	while (it != NULL)
+	while (it != nullptr)
 	{
 		// If it's birthday is equal to the date passed in, print it's birthday card
 		Address curAddress = ((Address)it->val);
@@ -163,7 +165,7 @@ void AddressBook::generateAnniversaryCards(std::string date)
 {
 	// Go through every address
 	Node* it = head;
-	while (it != NULL)
+	while (it != nullptr)
 	{
 		// If it's anniversary is equal to the date passed in, print it's birthday card
 		Address curAddress = ((Address)it->val);
@@ -181,28 +183,28 @@ void AddressBook::add(Address newAddress)
 	// Create a new node with our address
 	Node* newNode = new Node;
 	newNode->val = newAddress;
-	newNode->next = NULL;
+	newNode->next = nullptr;
 
 	// IF the head is null, the head and tail are both the new node
-	if (head == NULL)
+	if (head == nullptr)
 	{
 		head = tail = newNode;
 	}
 	else
 	{
 		// Create an iterator, and previous iterator
-		Node* prev = NULL;
+		Node* prev = nullptr;
 		Node* it = head;
 
 		// Go through each element
-		while (it != NULL)
+		while (it != nullptr)
 		{
 			// If the current name is greater than the new name,
 			std::string curName = ((Address)it->val).name;
 			if (curName > newAddress.name)
 			{
 				// Add the new node at the last location, then rewire the list
-				if (prev == NULL)
+				if (prev == nullptr)
 				{
 					head = newNode;
 					newNode->next = it;
@@ -217,7 +219,7 @@ void AddressBook::add(Address newAddress)
 			else
 			{
 				// Else we go to the next node
-				if (it->next == NULL)
+				if (it->next == nullptr)
 				{
 					it->next = newNode;
 					it = newNode->next;
@@ -305,7 +307,7 @@ void AddressBook::save()
 
 	// For every address
 	Node* it = head;
-	while (it != NULL)
+	while (it != nullptr)
 	{
 		// Print it's information to a new line of the text file
 		Address curAddress = (Address)it->val;
